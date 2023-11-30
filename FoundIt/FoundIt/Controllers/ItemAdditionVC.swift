@@ -51,6 +51,9 @@ class ItemAdditionVC : UIViewController {
         itemImage.layer.cornerRadius = 8
         itemImage.clipsToBounds = true
         itemImage.translatesAutoresizingMaskIntoConstraints = false
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        itemImage.isUserInteractionEnabled = true
+        itemImage.addGestureRecognizer(tap)
         view.addSubview(itemImage)
                         
         NSLayoutConstraint.activate([
@@ -110,10 +113,27 @@ class ItemAdditionVC : UIViewController {
         ])
     }
     
+    @objc func imageTapped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+
     
     
     
     
     
     
+    
+}
+
+extension ItemAdditionVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imageChooserController(_ picker: UIImagePickerController, didFinishSelection
+                                info: [UIImagePickerController.InfoKey: Any]) {
+        itemImage.image = info[.originalImage] as? UIImage
+        dismiss(animated: true, completion: nil)
+    }
 }
