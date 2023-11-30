@@ -10,10 +10,9 @@ import UIKit
 class ViewController: UIViewController {
     //MARK: - Properties (View)
     private var collectionView: UICollectionView!
-    private let refreshControl = UIRefreshControl()
     
     //MARK: - Properties (Data)
-    private var items: [Item] = []
+    private var items: [Item] = Item.dummyItems
     
     
     //MARK: - viewDidLoad
@@ -22,7 +21,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "FoundIt!"
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.found.offWhite
+        
+        setupCollectionView()
     }
     
     //MARK: - Set Up Views
@@ -30,15 +31,14 @@ class ViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 12
-        layout.minimumInteritemSpacing = 0
+        layout.minimumInteritemSpacing = 12
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.found.offWhite
         collectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: ItemCollectionViewCell.reuse)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
-        collectionView.refreshControl = refreshControl
         
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,11 +50,6 @@ class ViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
-    
-
-
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -68,32 +63,19 @@ extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = collectionView.frame.width / 2
-        return CGSize(width: size, height: 216)
+        let size = collectionView.frame.width - 48
+        return CGSize(width: size, height: 222)
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.filterCollectionView {
-            let difficulty = self.filterNames[indexPath.row]
-            self.difficulty = difficulty
-            if difficulty == "All" {
-                self.filteredRecipes = self.recipes
-            } else {
-                self.filteredRecipes = self.recipes.filter { $0.difficulty == difficulty }
-            }
-            self.filterCollectionView.reloadData()
-            self.collectionView.reloadData()
-        }
-        
-    }
-}
 

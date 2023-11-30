@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2842BE132B18E57500A5D91A /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842BE122B18E57500A5D91A /* UIColorExtensions.swift */; };
 		284A8AE62B181CC300591F53 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A8AE52B181CC300591F53 /* ItemCollectionViewCell.swift */; };
 		284A8AE82B18209400591F53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A8AE72B18209400591F53 /* ViewController.swift */; };
 		285C1DFA2B16D71F00ECBD53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C1DF92B16D71F00ECBD53 /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2842BE122B18E57500A5D91A /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		284A8AE52B181CC300591F53 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		284A8AE72B18209400591F53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		285C1DF62B16D71F00ECBD53 /* FoundIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoundIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,7 @@
 		285C1DF82B16D71F00ECBD53 /* FoundIt */ = {
 			isa = PBXGroup;
 			children = (
+				28F91D602B18E51500EB341C /* Extensions */,
 				285C1E2F2B16DD0900ECBD53 /* Networking */,
 				285C1E2E2B16DD0400ECBD53 /* Controllers */,
 				285C1E2D2B16DCFF00ECBD53 /* Views */,
@@ -165,6 +168,14 @@
 			children = (
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		28F91D602B18E51500EB341C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2842BE122B18E57500A5D91A /* UIColorExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +318,7 @@
 				284A8AE82B18209400591F53 /* ViewController.swift in Sources */,
 				284A8AE62B181CC300591F53 /* ItemCollectionViewCell.swift in Sources */,
 				285C1E312B16DD7C00ECBD53 /* Item.swift in Sources */,
+				2842BE132B18E57500A5D91A /* UIColorExtensions.swift in Sources */,
 				285C1DFA2B16D71F00ECBD53 /* AppDelegate.swift in Sources */,
 				285C1DFC2B16D71F00ECBD53 /* SceneDelegate.swift in Sources */,
 			);
