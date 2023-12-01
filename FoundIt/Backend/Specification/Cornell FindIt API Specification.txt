@@ -1,0 +1,171 @@
+﻿Same as PDF Version, but in plain text.
+
+EXTERNAL IP: 34.150.237.6
+PORTS: 80:8000
+ROUTES:
+
+
+GET         /items/
+Returns all items
+Response 200
+{
+    "items": [
+        {
+            "id": 1,
+            "imageUrl": "https://cornellfindit.s3.us-east-1.amazonaws.com/…",
+            "desc": "blue and black water bottle",
+            "loc_desc": "second floor in the kitchen lounge",
+            "time": "10:00",
+            "status": "lost",
+            "contact": "mvgaile on instagram",
+            "loc_id": 1,
+            "building_name": "Alice Cook House"
+        },
+        {
+            "id":...
+        }
+    ]
+}
+
+
+
+
+GET        /items/<int:item_id>/
+Gets an item by its ID
+Response 200 upon success
+{
+    "id": 1,
+    "imageUrl": "https://cornellfindit.s3.us-east-1.amazonaws.com/…",
+    "desc": "blue and black water bottle",
+    "loc_desc": "second floor in the kitchen lounge",
+    "time": "10:00",
+    "status": "lost",
+    "contact": "mvgaile on instagram",
+    "loc_id": 1,
+    "building_name": "Alice Cook House"
+}
+
+
+
+
+GET        /items/<string:loc_name>/
+Gets all items associated with one location name
+Response 200
+[
+    {
+        "id": 1,
+        "imageUrl": "https://cornellfindit.s3.us-east-1.amazonaws.com/…",
+        "desc": "blue and black water bottle",
+        "loc_desc": "second floor in the kitchen lounge",
+        "time": "10:00",
+        "status": "lost",
+        "contact": "mvgaile on instagram"
+    },
+    {
+        "id": 2
+        ...
+    }
+]
+
+
+
+
+POST        /items/
+Creates a new item
+Response 201 upon success
+{
+    "desc" : [STRING DESCRIPTION],          # Optional, default: "No description provided"
+    "image_data": [STRING BASE64],          # Must start with "data:image/jpeg;base64,"
+    "loc_desc": [STRING DESCRIPTION],       # Optional, default: "No location description provided"
+    "status": [STRING STATUS],              # Optional, default: "Lost"
+    "contact": [STRING CONTACT],            # Optional, default: "No contact provided"
+    "loc_name": [STRING LOCATION NAME],     # Must be a valid location name
+    "time": [STRING DATETIME],              # Optional, default: str(datetime.datetime.now())
+    }
+
+
+
+
+DELETE    /items/<int:item_id>/<string:password>/
+Deletes an item
+Response 200 upon success
+{
+    "id": 1,
+    "imageUrl": "https://cornellfindit.s3.us-east-1.amazonaws.com/…",
+    "desc": "blue and black water bottle",
+    "loc_desc": "second floor in the kitchen lounge",
+    "time": "10:00",
+    "status": "lost",
+    "contact": "mvgaile on instagram",
+    "loc_id": 1,
+    "building_name": "Alice Cook House"
+}
+
+
+GET        /locations/
+Gets all locations
+Response 200
+{
+    "locations": [
+        {
+            "id": 1,
+            "building_name": "Alice Cook House",
+            "building_code": "ACH",
+            "items": [
+                {
+                    "id": 1,
+                    "imageUrl": "https://cornellfindit.s3.us-east-1.amazonaws.com/5EY2GA79GOM73SK4.jpg",
+                    "desc": "helllo",
+                    "loc_desc": "hello",
+                    "time": "10:00",
+                    "status": "lost",
+                    "contact": "dwesfe"
+                }
+            ]
+        }, ...
+
+
+
+
+GET        /locations/<string:building_code>/
+Gets location by its building code
+Response 200 upon success
+{
+    "building_code": "ACH",
+    "building_name": "Alice Cook House",
+    "id": 1,
+    "items": [
+        {
+            "contact": "dwesfe",
+            "desc": "helllo",
+            "id": 1,
+            "imageUrl": "https://cornellfindit.s3.us-east-1.amazonaws.com/5EY2GA79GOM73SK4.jpg",
+            "loc_desc": "hello",
+            "status": "lost",
+            "time": "10:00"
+        }
+    ]
+}
+
+
+
+
+POST        /locations/startup/<string:password>/
+Designed for pre-populating the database with the necessary location
+Response 201 upon success
+{
+    "locations": [
+        {
+            "id": 1,
+            "building_name": "Alice Cook House",
+            "building_code": "ACH",
+            "items": []
+        }, ...
+
+
+
+
+GET        /
+Shows the default message, used for debugging
+Response 200 upon success
+"Hello! This is the CornellFindIt base endpoint! Download our app on the Apple Appstore!"
