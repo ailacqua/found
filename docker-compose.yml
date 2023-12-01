@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  demo:
+    image: mvgaile/app
+    env_file: .env
+    ports:
+      - "80:8000"
