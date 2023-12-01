@@ -24,7 +24,7 @@ class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     building_name = db.Column(db.String, nullable=False)
     building_code = db.Column(db.String, nullable=False)
-    items = db.relationship("Item", cascade="delete")
+    items = db.relationship("Item", back_populates="location", cascade="delete")
 
     def __init__(self, **kwargs):
         """
@@ -41,7 +41,7 @@ class Location(db.Model):
             "id": self.id,
             "building_name" : self.building_name,
             "building_code" : self.building_code,
-            "items" : [r.serialize() for r in self.reservations]
+            "items" : [r.serialize() for r in self.items]
         }
 
 class Item(db.Model):
@@ -58,6 +58,7 @@ class Item(db.Model):
     
     
     loc_id = db.Column(db.Integer, db.ForeignKey("location.id"), nullable=False)
+    location = db.relationship("Location", back_populates="items")
 
     def __init__(self, **kwargs):
             """
@@ -68,6 +69,7 @@ class Item(db.Model):
             self.time = kwargs.get("time")
             self.status = kwargs.get("status")
             self.contact = kwargs.get("contact")
+            self.loc_id = kwargs.get("loc_id")
 
         
     def serialize(self):
@@ -80,6 +82,7 @@ class Item(db.Model):
                 "loc_desc" : self.loc_desc,
                 "time" : self.time,
                 "status" : self.status,
-                "contact" : self.contact            
+                "contact" : self.contact,            
+                "loc_name" : self.location.building_name
                 }
         

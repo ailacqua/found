@@ -44,19 +44,24 @@ def get_items():
     items = [item.serialize() for item in Item.query.all()]
     return success_response({"items":items})
 
-@app.route("/items/<int:loc_id>", methods=["POST"])
-def create_items(loc_id):
+@app.route("/items/<string:loc_name>/", methods=["POST"])
+def create_items(loc_name):
     """
     Endpoint for creating a new task.
 
     Ex:
 
     {
-    "desc" : [ITEM DESCRIPTION]
+    "desc" : [ITEM DESCRIPTION],
+    
     }
     """
     body = json.loads(request.data)
-    new_item = Item(desc = body.get("desc"), loc_desc=body.get("loc_desc"), time=body.get("time"), status = body.get("status"), contact = body.get("contact"), loc_id=loc_id)
+
+    location = Location.query.filter_by(building_name=loc_name).first()
+    loc_id = location.serialize()["id"]
+    new_item = Item(desc = body.get("desc"), loc_desc=body.get("loc_desc"), time=body.get("time"), 
+                    status = body.get("status"), contact = body.get("contact"), loc_id=loc_id)
     db.session.add(new_item)
     db.session.commit()
     return success_response(new_item.serialize(), 201)
@@ -98,12 +103,12 @@ def get_items_by_loc_id(loc_id):
     return success_response(location.serialize()["items"])
 
 
-@app.route("/items/<str:loc_code>/")
-def get_items_by_loc_code(loc_code):
+@app.route("/items/<string:loc_name>/")
+def get_items_by_loc_name(loc_name):
     """
-    Get items associated with a specific building code
+    Get items associated with a specific building name
     """
-    location = Location.query.filter_by(building_code=loc_code).first()
+    location = Location.query.filter_by(building_name=loc_name).first()
     if location is None:
         return failure_response("Location not found!")
     return success_response(location.serialize()["items"])
@@ -120,7 +125,7 @@ def get_all_locations():
     locations = [loc.serialize() for loc in Location.query.all()]
     return success_response({"locations":locations})
 
-@app.route("/locations/<str:building_code>/")
+@app.route("/locations/<string:building_code>/")
 def get_location_id_by_code(building_code):
     """
     Get id of location by code.
@@ -137,6 +142,16 @@ def get_location_id_by_code(building_code):
     Endpoint for uploading an image to AWS given its base64 form,
     then storing/returning the URL of that image
     """
+
+@app.route("/locations/<int:loc_id>/")
+def get_loc(loc_id):
+    """
+    Endpoint for getting a item by id
+    """
+    loc = Location.query.filter_by(id=loc_id).first()
+    if loc is None:
+        return failure_response("Location not found!")
+    return success_response(loc.serialize())
 
 
 if __name__ == "__main__":
