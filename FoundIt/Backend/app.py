@@ -120,16 +120,6 @@ def delete_item(item_id, password):
     return success_response(item.serialize())
 
 
-@app.route("/items/<int:loc_id>/")
-def get_items_by_loc_id(loc_id):
-    """
-    Get items associated with a specific location id.
-    """
-    location = Location.query.filter_by(id=loc_id).first()
-    if location is None:
-        return failure_response("Location not found!")
-    return success_response(location.serialize()["items"])
-
 
 @app.route("/items/<string:loc_name>/")
 def get_items_by_loc_name(loc_name):
