@@ -18,14 +18,16 @@ class ItemCollectionViewCell: UICollectionViewCell {
     private let locationImageView = UIImageView()
     private let contactImageView = UIImageView()
     private let itemImageView = UIImageView()
+    private let actionButton = UIButton()
     
     //MARK: - Properties (Data)
     private var itemText: String = ""
     private var status: Bool = false
     private var itemImage: String = ""
     private var location: String = ""
+    private var locationId: Int = 0
     private var contact: String = ""
-    private var time: Date = Date()
+    private var time: String = ""
     private let formatter = DateFormatter()
     static let reuse = "ItemCollectionViewCellReuse"
     
@@ -39,8 +41,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 16
         
         formatter.setLocalizedDateFormatFromTemplate("MMM d, h:mm a")
-        //formatter.timeStyle = .short
-        //formatter.dateStyle = .short
         
         setupItemLabel()
         setupStatusImageView()
@@ -51,6 +51,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         setupLocationLabel()
         setupContactLabel()
         setupTimeLabel()
+        setupActionButton()
     }
     
     required init?(coder: NSCoder) {
@@ -65,18 +66,18 @@ class ItemCollectionViewCell: UICollectionViewCell {
         self.location = item.locDesc
         self.contact = item.contact
         self.time = item.time
-        print(self.time)
         
         self.itemLabel.text = self.itemText
         self.itemImageView.image = UIImage(named: self.itemImage)
         self.locationLabel.text = self.location
         self.contactLabel.text = self.contact
 
-        self.timeLabel.text = formatter.string(from: self.time)
+        self.timeLabel.text = self.time
         
         if self.status == true { //FOUND
             self.statusImageView.image = UIImage(named: "found")
             contentView.backgroundColor = UIColor.found.lightGreen
+            
             
         } else { //LOST
             self.statusImageView.image = UIImage(named: "lost")
@@ -140,7 +141,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         locationImageView.layer.masksToBounds = true
                         
         NSLayoutConstraint.activate([
-            locationImageView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 26),
+            locationImageView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 14),
             locationImageView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
             locationImageView.heightAnchor.constraint(equalToConstant: 22),
             locationImageView.widthAnchor.constraint(equalToConstant: 22)
@@ -156,7 +157,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         timeImageView.layer.masksToBounds = true
                         
         NSLayoutConstraint.activate([
-            timeImageView.topAnchor.constraint(equalTo: locationImageView.bottomAnchor, constant: 32),
+            timeImageView.topAnchor.constraint(equalTo: locationImageView.bottomAnchor, constant: 15),
             timeImageView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
             timeImageView.heightAnchor.constraint(equalToConstant: 22),
             timeImageView.widthAnchor.constraint(equalToConstant: 22)
@@ -172,7 +173,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         contactImageView.layer.masksToBounds = true
                         
         NSLayoutConstraint.activate([
-            contactImageView.topAnchor.constraint(equalTo: timeImageView.bottomAnchor, constant: 32),
+            contactImageView.topAnchor.constraint(equalTo: timeImageView.bottomAnchor, constant: 15),
             contactImageView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
             contactImageView.heightAnchor.constraint(equalToConstant: 22),
             contactImageView.widthAnchor.constraint(equalToConstant: 22)
@@ -216,6 +217,30 @@ class ItemCollectionViewCell: UICollectionViewCell {
             timeLabel.centerYAnchor.constraint(equalTo: timeImageView.centerYAnchor),
             timeLabel.leadingAnchor.constraint(equalTo: timeImageView.trailingAnchor, constant: 6),
         ])
+    }
+    
+    private func setupActionButton() {
+        actionButton.setTitle("Mark Retrieved", for: .normal)
+        actionButton.setTitleColor(UIColor.found.white, for: .normal)
+        actionButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        actionButton.backgroundColor = UIColor.found.green
+        actionButton.layer.cornerRadius = 18
+        
+        contentView.addSubview(actionButton)
+        actionButton.translatesAutoresizingMaskIntoConstraints = false
+        actionButton.addTarget(self, action: #selector(markRetrieved), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            actionButton.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
+            actionButton.topAnchor.constraint(equalTo: contactImageView.bottomAnchor, constant: 15),
+            actionButton.heightAnchor.constraint(equalToConstant: 35),
+            actionButton.widthAnchor.constraint(equalToConstant: 175)
+        ])
+    }
+    
+    //MARK: - Button Helpers
+    @objc private func markRetrieved() {
+        print("retrieved")
     }
     
 }

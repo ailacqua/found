@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     private let lostButton = UIButton()
     private let bottomLabel = UILabel()
     private let searchController = UISearchController(searchResultsController: nil)
+    private let refreshControl = UIRefreshControl()
     
     
     //MARK: - Properties (Data)
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "FoundIt!"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        //navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = UIColor.found.white
         
         setupSearchController()
@@ -38,6 +39,19 @@ class ViewController: UIViewController {
         setupFoundButton()
         setupLostButton()
         setupAddButton()
+        fetchItems()
+    }
+    //MARK: - Networking
+    @objc private func fetchItems() {
+        NetworkManager.shared.fetchItems { [weak self] items in
+            guard let self = self else { return }
+            self.items = items
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
     }
     
     //MARK: - Set Up Views
@@ -65,6 +79,9 @@ class ViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
+        
+        refreshControl.addTarget(self, action: #selector(fetchItems), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
         
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -207,7 +224,14 @@ class ViewController: UIViewController {
 
 // MARK: - UICollectionViewDelegate
 
-extension ViewController: UICollectionViewDelegate { }
+/*extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = self.filteredItems[indexPath.row]
+        let detailVC = DetailViewController(name: item.desc, image: item.image, loc: item.locId, advLoc: item.advLoc, contact: item.contact, status: item.status)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+}*/
 
 // MARK: - UICollectionViewDataSource
 extension ViewController: UICollectionViewDataSource {

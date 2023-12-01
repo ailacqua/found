@@ -91,8 +91,8 @@ class ItemAdditionVC : UIViewController {
         NSLayoutConstraint.activate([
             timeIcon.topAnchor.constraint(equalTo: itemDescription.bottomAnchor, constant: 8),
             timeIcon.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            timeIcon.heightAnchor.constraint(equalToConstant: 167),
-            timeIcon.widthAnchor.constraint(equalToConstant: 167)
+            timeIcon.heightAnchor.constraint(equalToConstant: 20),
+            timeIcon.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     
@@ -108,8 +108,8 @@ class ItemAdditionVC : UIViewController {
         NSLayoutConstraint.activate([
             contactIcon.topAnchor.constraint(equalTo: itemDescription.bottomAnchor, constant: 8),
             contactIcon.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            contactIcon.heightAnchor.constraint(equalToConstant: 167),
-            contactIcon.widthAnchor.constraint(equalToConstant: 167)
+            contactIcon.heightAnchor.constraint(equalToConstant: 20),
+            contactIcon.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     
@@ -118,13 +118,21 @@ class ItemAdditionVC : UIViewController {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         self.present(imagePicker, animated: true, completion: nil)
+        print("hi")
     }
 }
 
 extension ItemAdditionVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imageChooserController(_ picker: UIImagePickerController, didFinishSelection
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
                                 info: [UIImagePickerController.InfoKey: Any]) {
         itemImage.image = info[.originalImage] as? UIImage
+        let imageData = itemImage.image?.jpegData(compressionQuality: 0.75)
+        let imageDataEncodedString = imageData?.base64EncodedString()
+        let finalString = "data:image/jpeg;base64,\(imageDataEncodedString)"
+        print(imageDataEncodedString!.count)
+    
+        
+        
         dismiss(animated: true, completion: nil)
     }
 }
