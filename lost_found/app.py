@@ -4,8 +4,9 @@ from db import db
 from flask import Flask, request
 from db import Item
 from db import Location
-import locations
+from locations import LOCATIONS
 import os
+ 
 
 # define db filename
 db_filename = "lost.db"
@@ -44,8 +45,8 @@ def get_items():
     items = [item.serialize() for item in Item.query.all()]
     return success_response({"items":items})
 
-@app.route("/items/<string:loc_name>/", methods=["POST"])
-def create_items(loc_name):
+@app.route("/items/", methods=["POST"])
+def create_items():
     """
     Endpoint for creating a new task.
 
@@ -58,7 +59,7 @@ def create_items(loc_name):
     """
     body = json.loads(request.data)
 
-    location = Location.query.filter_by(building_name=loc_name).first()
+    location = Location.query.filter_by(building_name=body.get("loc_name")).first()
     loc_id = location.serialize()["id"]
     new_item = Item(desc = body.get("desc"), loc_desc=body.get("loc_desc"), time=body.get("time"), 
                     status = body.get("status"), contact = body.get("contact"), loc_id=loc_id)
@@ -153,6 +154,22 @@ def get_loc(loc_id):
         return failure_response("Location not found!")
     return success_response(loc.serialize())
 
+@app.route("/locations/startup/")
+def create_locations():
+    """
+    Creates the location table
+    """
+
+    for key in LOCATIONS.keys():
+        new_location = Location(
+            building_name = LOCATIONS[key],
+            building_code = key,
+        )
+        db.session.add(new_location)
+      
+    db.session.commit()
+    return success_response("Locations added!")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
+

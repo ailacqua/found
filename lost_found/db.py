@@ -53,9 +53,9 @@ class Item(db.Model):
     desc = db.Column(db.String, nullable = False)
     loc_desc = db.Column(db.String, nullable = False)
     time = db.Column(db.String, nullable = False)
-    status = db.Column(db.Boolean, nullable = False)
+    status = db.Column(db.String, nullable = False)
     contact = db.Column(db.String, nullable = True)
-    
+     
     
     loc_id = db.Column(db.Integer, db.ForeignKey("location.id"), nullable=False)
     location = db.relationship("Location", back_populates="items")
