@@ -16,4 +16,4 @@ Cornell FoundIt
 
 Cornell's lost and found
 
-![alt text]("https://cornellfindit.s3.us-east-1.amazonaws.com/UUDFQVYFB20VO3NH.jpg)
+![Screenshot]("https://cornellfindit.s3.us-east-1.amazonaws.com/UUDFQVYFB20VO3NH.jpg)
