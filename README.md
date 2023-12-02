@@ -16,7 +16,12 @@ Date Completed: 12/1/2023
 
 2. Cornell's lost and found
 
-3. ![Screenshot](https://cornellfindit.s3.us-east-1.amazonaws.com/UUDFQVYFB20VO3NH.jpg), ![Screenshot](https://cornellfindit.s3.us-east-1.amazonaws.com/UUDFQVYFB20VO3NH.jpg), ![Screenshot](https://cornellfindit.s3.us-east-1.amazonaws.com/7Q6O8EN3BECLOZA7.jpg)
+3. Screenshots:
+   https://cornellfindit.s3.us-east-1.amazonaws.com/1QU2K6D0RYLY6QBX.png
+
+  https://cornellfindit.s3.us-east-1.amazonaws.com/A7PSU6NSUQZ5F60O.png
+
+  https://cornellfindit.s3.us-east-1.amazonaws.com/7Q6O8EN3BECLOZA7.png
 
 4.--
 
