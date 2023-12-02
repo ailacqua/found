@@ -20,8 +20,8 @@ class ViewController: UIViewController {
     
     
     //MARK: - Properties (Data)
-    private var items: [Item] = Item.dummyItems
-    private var filteredItems: [Item] = Item.dummyItems
+    private var items: [Item] = []
+    private var filteredItems: [Item] = []
     
     
     //MARK: - viewDidLoad
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "FoundIt!"
-        //navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = UIColor.found.white
         
         setupSearchController()
@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         NetworkManager.shared.fetchItems { [weak self] items in
             guard let self = self else { return }
             self.items = items
+            self.filteredItems = items
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -202,7 +203,7 @@ class ViewController: UIViewController {
         lostButton.setTitleColor(UIColor.found.black, for: .normal)
         lostButton.backgroundColor = UIColor.found.offWhite
         
-        self.filteredItems = items.filter { $0.status == true}
+        self.filteredItems = items.filter { $0.status == "found"}
         self.collectionView.reloadData()
     }
     @objc private func setLost() {
@@ -213,7 +214,7 @@ class ViewController: UIViewController {
         lostButton.setTitleColor(UIColor.found.white, for: .normal)
         lostButton.backgroundColor = UIColor.found.ruby
         
-        self.filteredItems = items.filter { $0.status == false}
+        self.filteredItems = items.filter { $0.status == "lost"}
         self.collectionView.reloadData()
     }
     @objc private func pushAddVC() {
@@ -224,14 +225,14 @@ class ViewController: UIViewController {
 
 // MARK: - UICollectionViewDelegate
 
-/*extension ViewController: UICollectionViewDelegate {
+extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.filteredItems[indexPath.row]
-        let detailVC = DetailViewController(name: item.desc, image: item.image, loc: item.locId, advLoc: item.advLoc, contact: item.contact, status: item.status)
+        let detailVC = DetailViewController(item: item)
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-}*/
+}
 
 // MARK: - UICollectionViewDataSource
 extension ViewController: UICollectionViewDataSource {
@@ -254,7 +255,7 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = collectionView.frame.width - 48
+        let size = collectionView.frame.width - 30
         return CGSize(width: size, height: 222)
     }
 }

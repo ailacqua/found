@@ -17,7 +17,9 @@ extension UIColor {
         let ruby = UIColor(red: 202/255, green: 66/255, blue: 56/255, alpha: 1)
         let silver = UIColor(red: 191/255, green: 191/255, blue: 191/255, alpha: 1)
         let lightRed = UIColor(red: 255/255, green: 204/255, blue: 203/255, alpha: 0.5)
+        let fullLightRed = UIColor(red: 255/255, green: 204/255, blue: 203/255, alpha: 1)
         let lightGreen = UIColor(red: 185/255, green: 226/255, blue: 167/255, alpha: 0.4)
+        let fullLightGreen = UIColor(red: 185/255, green: 226/255, blue: 167/255, alpha: 1)
         let green = UIColor(red: 0/255, green: 128/255, blue: 0/255, alpha: 1)
         let white = UIColor.white
     }

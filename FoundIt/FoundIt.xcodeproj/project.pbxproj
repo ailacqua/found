@@ -23,6 +23,10 @@
 		28A13C6C2B1957FA00A1BD9C /* ItemAdditionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A13C6B2B1957FA00A1BD9C /* ItemAdditionVC.swift */; };
 		28A6647A2B1965790016ECF0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A664792B1965790016ECF0 /* NetworkManager.swift */; };
 		28A6647C2B196DEA0016ECF0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6647B2B196DEA0016ECF0 /* DetailViewController.swift */; };
+		28A6647F2B19991D0016ECF0 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 28A6647E2B19991D0016ECF0 /* SDWebImage */; };
+		28B465BA2B1A73D900F0B17A /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B465B92B1A73D900F0B17A /* UIFontExtensions.swift */; };
+		28B465BC2B1AC3BE00F0B17A /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B465BB2B1AC3BE00F0B17A /* LocationTableViewCell.swift */; };
+		28B465BE2B1AC3F600F0B17A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B465BD2B1AC3F600F0B17A /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,9 @@
 		28A13C6B2B1957FA00A1BD9C /* ItemAdditionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAdditionVC.swift; sourceTree = "<group>"; };
 		28A664792B1965790016ECF0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		28A6647B2B196DEA0016ECF0 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		28B465B92B1A73D900F0B17A /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
+		28B465BB2B1AC3BE00F0B17A /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		28B465BD2B1AC3F600F0B17A /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28A6647F2B19991D0016ECF0 /* SDWebImage in Frameworks */,
 				285C1E2B2B16D77B00ECBD53 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				285C1E302B16DD7C00ECBD53 /* Item.swift */,
+				28B465BD2B1AC3F600F0B17A /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -157,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				284A8AE52B181CC300591F53 /* ItemCollectionViewCell.swift */,
+				28B465BB2B1AC3BE00F0B17A /* LocationTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				2842BE122B18E57500A5D91A /* UIColorExtensions.swift */,
+				28B465B92B1A73D900F0B17A /* UIFontExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -205,6 +216,7 @@
 			name = FoundIt;
 			packageProductDependencies = (
 				285C1E2A2B16D77B00ECBD53 /* Alamofire */,
+				28A6647E2B19991D0016ECF0 /* SDWebImage */,
 			);
 			productName = FoundIt;
 			productReference = 285C1DF62B16D71F00ECBD53 /* FoundIt.app */;
@@ -280,6 +292,7 @@
 			mainGroup = 285C1DED2B16D71F00ECBD53;
 			packageReferences = (
 				285C1E292B16D77B00ECBD53 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				28A6647D2B19991D0016ECF0 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 285C1DF72B16D71F00ECBD53 /* Products */;
 			projectDirPath = "";
@@ -326,12 +339,15 @@
 			files = (
 				28A6647C2B196DEA0016ECF0 /* DetailViewController.swift in Sources */,
 				284A8AE82B18209400591F53 /* ViewController.swift in Sources */,
+				28B465BA2B1A73D900F0B17A /* UIFontExtensions.swift in Sources */,
 				284A8AE62B181CC300591F53 /* ItemCollectionViewCell.swift in Sources */,
 				285C1E312B16DD7C00ECBD53 /* Item.swift in Sources */,
 				2842BE132B18E57500A5D91A /* UIColorExtensions.swift in Sources */,
 				28A6647A2B1965790016ECF0 /* NetworkManager.swift in Sources */,
 				28A13C6C2B1957FA00A1BD9C /* ItemAdditionVC.swift in Sources */,
+				28B465BC2B1AC3BE00F0B17A /* LocationTableViewCell.swift in Sources */,
 				285C1DFA2B16D71F00ECBD53 /* AppDelegate.swift in Sources */,
+				28B465BE2B1AC3F600F0B17A /* Location.swift in Sources */,
 				285C1DFC2B16D71F00ECBD53 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,6 +699,14 @@
 				minimumVersion = 5.8.1;
 			};
 		};
+		28A6647D2B19991D0016ECF0 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.18.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -690,6 +714,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 285C1E292B16D77B00ECBD53 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		28A6647E2B19991D0016ECF0 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 28A6647D2B19991D0016ECF0 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
