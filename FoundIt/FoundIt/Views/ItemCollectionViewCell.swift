@@ -23,6 +23,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
     private var itemText: String = ""
     private var status: Bool = false
     private var itemImage: String = ""
+    private var location: String = ""
+    private var contact: String = ""
+    private var time: Date = Date()
+    private let formatter = DateFormatter()
     static let reuse = "ItemCollectionViewCellReuse"
     
     
@@ -34,10 +38,19 @@ class ItemCollectionViewCell: UICollectionViewCell {
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 16
         
+        formatter.setLocalizedDateFormatFromTemplate("MMM d, h:mm a")
+        //formatter.timeStyle = .short
+        //formatter.dateStyle = .short
+        
         setupItemLabel()
         setupStatusImageView()
         setupItemImageView()
         setupLocationImageView()
+        setupTimeImageView()
+        setupContactImageView()
+        setupLocationLabel()
+        setupContactLabel()
+        setupTimeLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -49,9 +62,17 @@ class ItemCollectionViewCell: UICollectionViewCell {
         self.itemText = item.desc
         self.status = item.status
         self.itemImage = item.image
+        self.location = item.locDesc
+        self.contact = item.contact
+        self.time = item.time
+        print(self.time)
         
         self.itemLabel.text = self.itemText
         self.itemImageView.image = UIImage(named: self.itemImage)
+        self.locationLabel.text = self.location
+        self.contactLabel.text = self.contact
+
+        self.timeLabel.text = formatter.string(from: self.time)
         
         if self.status == true { //FOUND
             self.statusImageView.image = UIImage(named: "found")
@@ -66,7 +87,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Set Up Views
     private func setupItemLabel() {
-        itemLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        itemLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         itemLabel.textColor = UIColor.black
         itemLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -119,47 +140,82 @@ class ItemCollectionViewCell: UICollectionViewCell {
         locationImageView.layer.masksToBounds = true
                         
         NSLayoutConstraint.activate([
-            locationImageView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 12),
+            locationImageView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 26),
             locationImageView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
-            locationImageView.heightAnchor.constraint(equalToConstant: 20),
-            locationImageView.widthAnchor.constraint(equalToConstant: 20)
+            locationImageView.heightAnchor.constraint(equalToConstant: 22),
+            locationImageView.widthAnchor.constraint(equalToConstant: 22)
         ])
     }
     
     private func setupTimeImageView() {
-        locationImageView.image = UIImage(named: "time")
-        locationImageView.contentMode = .scaleAspectFit
+        timeImageView.image = UIImage(named: "time")
+        timeImageView.contentMode = .scaleAspectFit
         
-        contentView.addSubview(locationImageView)
-        locationImageView.translatesAutoresizingMaskIntoConstraints = false
-        locationImageView.layer.masksToBounds = true
+        contentView.addSubview(timeImageView)
+        timeImageView.translatesAutoresizingMaskIntoConstraints = false
+        timeImageView.layer.masksToBounds = true
                         
         NSLayoutConstraint.activate([
-            locationImageView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 8),
-            locationImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            locationImageView.heightAnchor.constraint(equalToConstant: 167),
-            locationImageView.widthAnchor.constraint(equalToConstant: 167)
+            timeImageView.topAnchor.constraint(equalTo: locationImageView.bottomAnchor, constant: 32),
+            timeImageView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
+            timeImageView.heightAnchor.constraint(equalToConstant: 22),
+            timeImageView.widthAnchor.constraint(equalToConstant: 22)
         ])
     }
     
     private func setupContactImageView() {
-        locationImageView.image = UIImage(named: "contact")
-        locationImageView.contentMode = .scaleAspectFit
+        contactImageView.image = UIImage(named: "contact")
+        contactImageView.contentMode = .scaleAspectFit
         
-        contentView.addSubview(locationImageView)
-        locationImageView.translatesAutoresizingMaskIntoConstraints = false
-        locationImageView.layer.masksToBounds = true
+        contentView.addSubview(contactImageView)
+        contactImageView.translatesAutoresizingMaskIntoConstraints = false
+        contactImageView.layer.masksToBounds = true
                         
         NSLayoutConstraint.activate([
-            locationImageView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 8),
-            locationImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            locationImageView.heightAnchor.constraint(equalToConstant: 167),
-            locationImageView.widthAnchor.constraint(equalToConstant: 167)
+            contactImageView.topAnchor.constraint(equalTo: timeImageView.bottomAnchor, constant: 32),
+            contactImageView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 12),
+            contactImageView.heightAnchor.constraint(equalToConstant: 22),
+            contactImageView.widthAnchor.constraint(equalToConstant: 22)
+        ])
+    }
+    
+    private func setupLocationLabel() {
+        locationLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        locationLabel.textColor = UIColor.black
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(locationLabel)
+        
+        NSLayoutConstraint.activate([
+            locationLabel.centerYAnchor.constraint(equalTo: locationImageView.centerYAnchor),
+            locationLabel.leadingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: 6),
+        ])
+    }
+    
+    private func setupContactLabel() {
+        contactLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        contactLabel.textColor = UIColor.black
+        contactLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(contactLabel)
+        
+        NSLayoutConstraint.activate([
+            contactLabel.centerYAnchor.constraint(equalTo: contactImageView.centerYAnchor),
+            contactLabel.leadingAnchor.constraint(equalTo: contactImageView.trailingAnchor, constant: 6),
+        ])
+    }
+    
+    private func setupTimeLabel() {
+        timeLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        timeLabel.textColor = UIColor.black
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(timeLabel)
+        
+        NSLayoutConstraint.activate([
+            timeLabel.centerYAnchor.constraint(equalTo: timeImageView.centerYAnchor),
+            timeLabel.leadingAnchor.constraint(equalTo: timeImageView.trailingAnchor, constant: 6),
         ])
     }
     
 }
-
-
-
-
